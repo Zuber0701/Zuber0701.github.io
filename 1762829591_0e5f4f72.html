@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化与总结</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .report-title { text-align: center; font-size: 32px; font-weight: bold; margin: 30px 0; }
+        .chart-container { width: 100%; height: 400px; margin-bottom: 10px; }
+        .summary-container { margin-top: 20px; line-height: 1.6; }
+        .summary-container h1 { font-size: 24px; margin: 20px 0; }
+        .summary-container h2 { font-size: 20px; margin: 16px 0; }
+        .summary-container p { margin: 10px 0; }
+        .summary-container strong { font-weight: bold; }
+        .summary-container p, .summary-container li { text-indent: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="report-title">江夏城管事件数据分析报告</h1>
+        <div id="chart1" class="chart-container"></div>
+        <div id="chart2" class="chart-container"></div>
+        <div id="chart3" class="chart-container"></div>
+        <div id="chart4" class="chart-container"></div>
+        <div id="chart5" class="chart-container"></div>
+        <div class="summary-container">
+            <h1>总结</h1>
+            <p>通过分析，可以看出城市管理工作中的主要问题集中在违法占道经营、工地噪音和其他市容环境问题，这三类案件占比接近60%，违法占道经营是首要案件类型。诉求案例的时间趋势显示2020年8月底至9月中旬为高峰，随后逐渐减少。案件地区分布较为分散，但五里墩社区、庙山村、栗庙村和环湖社区的诉求量相对较多，超过10件。中队处理案件分布显示，大桥中队和纸坊中队处理的案件数量最多，分别为25件和22件，相比之下，公厕办、费收所和郑店中队处理的案件较少，均不超过5件。综合来看，核心问题是占道经营与噪音污染的高发，需求在高诉求区和高处理案件中队的人力资源配置及管理策略的优化。</p>
+            <h1>下一步工作建议</h1>
+            <h2>违法占道经营专项治理</h2>
+            <p>违法占道经营依旧是城市管理工作中的焦点问题，建议对违法行为频发的区域展开专项治理活动。通过加强巡逻密度和频率，增设临时执法点，对违规行为实施零容忍政策，迅速响应市民举报，确保占道经营行为得到及时处理。同时，探索建立占道经营行为“黑名单”制度，对重复违规者依法加罚，从根本上减少此类行为的发生。</p>
+            <h2>噪音污染控制</h2>
+            <p>针对工地和商业噪音问题，需制定更严格的噪音污染防治措施。与建筑工地及商业活动管理方紧密合作，明确施工时间段，尤其是在夜间及节假日严格限制施工噪音；商业活动方面，对超时、超音量的商业促销活动进行警告或处罚，倡导商家使用环保型音响设备，降低噪音污染。此外，通过公众教育提升市民自我管理意识，鼓励使用噪音投诉热线，加强社区与商户间的沟通与协调。</p>
+            <h2>优化诉求处理流程</h2>
+            <p>从时间趋势图可以看出，2020年8月至9月期间诉求量较大，需要优化诉求处理流程以应对类似高峰期。可以考虑引入更高效的信息系统，实现诉求在线提交、自动分类、快速转办等功能，缩短响应时间。为高诉求区的城管中队增加人手，确保有足够的力量应对突发事件。开展定期培训，提高城管执法人员的专业技能和服务态度，增强市民对城管工作的认同感。</p>
+            <h2>强化地域管理</h2>
+            <p>对于案件集中的地区如五里墩社区、庙山村等，除了加强日常监督外，还应分析这些地区存在的共性问题，是否与人口密度、商业活动频繁度等因素有关。根据实际情况制定针对性策略，例如增加绿化建设、改善公共设施等措施，从源头上缓解市容环境问题。同时，建立社区共治机制，邀请居民参与城管工作的监督与管理，形成良好的社区治理氛围。</p>
+            <h2>资源均衡配置</h2>
+            <p>数据显示，部分城管中队如大桥中队、纸坊中队处理案件较多，而其他中队则相对较少。建议对城管力量进行调整，将工作重点向案件处置量大、市民反映强烈的地方倾斜。同时，评估各中队的效率与工作量，对工作较为轻松的中队提出更高的目标要求，或重新分配其职责范围，实现资源的合理配置。</p>
+        </div>
+    </div>
+    <script>
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+          "title": {
+            "left": "center",
+            "text": "城管案件分类"
+          },
+          "tooltip": {
+            "trigger": "item"
+          },
+          "legend": {
+            "orient": "vertical",
+            "left": "left"
+          },
+          "series": [
+            {
+              "type": "pie",
+              "data": [
+                {
+                  "value": 19,
+                  "name": "违法占道经营"
+                },
+                {
+                  "value": 16,
+                  "name": "工地噪音"
+                },
+                {
+                  "value": 16,
+                  "name": "其它市容环境问题"
+                },
+                {
+                  "value": 10,
+                  "name": "私搭乱建"
+                },
+                {
+                  "value": 6,
+                  "name": "商业噪音"
+                },
+                {
+                  "value": 4,
+                  "name": "油烟污染"
+                },
+                {
+                  "value": 4,
+                  "name": "投诉城管执法"
+                },
+                {
+                  "value": 1,
+                  "name": "沿街晾晒控管"
+                },
+                {
+                  "value": 1,
+                  "name": "绿地护栏"
+                },
+                {
+                  "value": 1,
+                  "name": "违章悬挂张贴标语广告"
+                }
+              ]
+            }
+          ]
+        });
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart2.setOption({
+          "title": {
+            "left": "center",
+            "text": "城管更新时间趋势"
+          },
+          "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "cross"
+            }
+          },
+          "xAxis": {
+            "type": "category",
+            "data": [
+              "2021-05-20"
+            ]
+          },
+          "yAxis": {
+            "type": "value"
+          },
+          "series": [
+            {
+              "data": [
+                78
+              ],
+              "type": "line",
+              "smooth": true
+            }
+          ]
+        });
+        const chart3 = echarts.init(document.getElementById('chart3'));
+        chart3.setOption({
+          "title": {
+            "left": "center",
+            "text": "城管诉求时间趋势"
+          },
+          "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "cross"
+            }
+          },
+          "xAxis": {
+            "type": "category",
+            "data": [
+              "2020-08-24",
+              "2020-08-25",
+              "2020-08-26",
+              "2020-08-27",
+              "2020-09-09",
+              "2020-09-10",
+              "2020-09-11",
+              "2020-09-12",
+              "2020-09-13",
+              "2020-10-11",
+              "2020-10-12",
+              "2020-10-13",
+              "2020-10-14",
+              "2020-11-16",
+              "2020-11-17",
+              "2020-12-05"
+            ]
+          },
+          "yAxis": {
+            "type": "value"
+          },
+          "series": [
+            {
+              "data": [
+                28,
+                8,
+                18,
+                3,
+                2,
+                3,
+                1,
+                2,
+                2,
+                2,
+                1,
+                1,
+                2,
+                1,
+                1,
+                3
+              ],
+              "type": "line",
+              "smooth": true
+            }
+          ]
+        });
+        const chart4 = echarts.init(document.getElementById('chart4'));
+        chart4.setOption({
+          "title": {
+            "left": "center",
+            "text": "城管诉求地区分布"
+          },
+          "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "cross"
+            }
+          },
+          "xAxis": {
+            "type": "category",
+            "data": [
+              "三潭社区",
+              "中洲村",
+              "五里墩社区",
+              "今城社区",
+              "何家湖村",
+              "关山村",
+              "北华社区",
+              "向阳村",
+              "复江道社区",
+              "宁安社区",
+              "庙山村",
+              "文字港社区",
+              "新北路社区",
+              "明星社区",
+              "普安村",
+              "杨园社区",
+              "栗庙社区",
+              "梅南山社区",
+              "渔牧村",
+              "环湖社区",
+              "红旗村",
+              "职中社区",
+              "育才社区",
+              "花山社区",
+              "西港社区",
+              "郭岭社区",
+              "金樱社区",
+              "长咀社区",
+              "青龙山社区",
+              "马山社区",
+              "龙井社区"
+            ]
+          },
+          "yAxis": {
+            "type": "value"
+          },
+          "series": [
+            {
+              "data": [
+                1,
+                1,
+                12,
+                3,
+                1,
+                1,
+                3,
+                2,
+                3,
+                3,
+                7,
+                1,
+                2,
+                2,
+                1,
+                1,
+                6,
+                1,
+                1,
+                5,
+                3,
+                3,
+                1,
+                3,
+                1,
+                3,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              "type": "bar",
+              "smooth": true
+            }
+          ]
+        });
+        const chart5 = echarts.init(document.getElementById('chart5'));
+        chart5.setOption({
+          "title": {
+            "left": "center",
+            "text": "城管中队处理案件分布"
+          },
+          "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "cross"
+            }
+          },
+          "xAxis": {
+            "type": "category",
+            "data": [
+              "公厕办",
+              "大桥中队",
+              "庙山中队",
+              "查控违中队",
+              "燃气办",
+              "社区办",
+              "纸坊中队",
+              "藏龙岛中队",
+              "费收所",
+              "郑店中队",
+              "金口中队"
+            ]
+          },
+          "yAxis": {
+            "type": "value"
+          },
+          "series": [
+            {
+              "data": [
+                1,
+                25,
+                7,
+                2,
+                2,
+                3,
+                22,
+                8,
+                5,
+                1,
+                2
+              ],
+              "type": "bar",
+              "smooth": true
+            }
+          ]
+        });
+        window.addEventListener('resize', () => {
+            chart1.resize();
+            chart2.resize();
+            chart3.resize();
+            chart4.resize();
+            chart5.resize();
+        });
+    </script>
+</body>
+</html>
